@@ -12,7 +12,6 @@ class StatusNode(Node):
         self.cmd_sub = self.create_subscription(String, 'robot_cmd', self.cmd_callback, 10)
         self.dist_sub = self.create_subscription(Float32, 'distance', self.dist_callback, 10)
         self.publisher_ = self.create_publisher(String, 'robot_status', 10)
-
         self.timer = self.create_timer(0.5, self.publish_status)
 
     def cmd_callback(self, msg):
@@ -27,7 +26,6 @@ class StatusNode(Node):
             msg.data = "Obstacle ahead! Stopping!"
         else:
             msg.data = f"Current action: {self.cmd}"
-
         self.publisher_.publish(msg)
         self.get_logger().info(f"Status: {msg.data}")
 
